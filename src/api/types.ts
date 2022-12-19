@@ -11,4 +11,5 @@ export interface Info {
   html_url: string
   full_name: string
   stargazers_count: number
+  language: string
 }
