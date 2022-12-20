@@ -65,7 +65,7 @@ const List: FC<IProps> = ({ dataSource, onDelete, open }) => {
           ],
           onChange: (key) => {
             setActiveKey(key)
-            setQuery(key)
+            // setQuery(key)
           },
         },
         search: {
