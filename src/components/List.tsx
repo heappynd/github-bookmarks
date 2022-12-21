@@ -4,6 +4,7 @@ import { Badge, Button, Space, Tag, Typography } from 'antd'
 import React, { FC, useMemo, useState } from 'react'
 import { Info } from '../api/types'
 import Highlighter from 'react-highlight-words'
+import { saveAs } from 'file-saver'
 
 interface IProps {
   dataSource: Info[]
@@ -34,6 +35,26 @@ const List: FC<IProps> = ({ dataSource, onDelete, open }) => {
       return new RegExp(query, 'i').test(item.description)
     })
   }, [dataSource, query])
+
+  function exp() {
+    const file = new File([JSON.stringify(dataSource)], 'info.json')
+    saveAs(file)
+  }
+
+  async function imp() {
+    // TODO: experimental
+    const objects = await (window as any).showOpenFilePicker()
+    const file = await objects[0].getFile()
+    const reader = new FileReader()
+    reader.addEventListener('load', (ev) => {
+      console.log(reader.result)
+      const json = reader.result as string
+      localStorage.setItem('list', json)
+    })
+    reader.readAsText(file)
+    // TODO: manual refresh
+    window.location.reload()
+  }
 
   return (
     <ProList<Info>
@@ -73,8 +94,15 @@ const List: FC<IProps> = ({ dataSource, onDelete, open }) => {
           allowClear: true,
         },
         actions: [
-          <Button type="primary" key="primary" onClick={open}>
+          <Button type="primary" key="1" onClick={open}>
             新建
+          </Button>,
+
+          <Button key="2" onClick={imp}>
+            导入
+          </Button>,
+          <Button key="3" onClick={exp}>
+            导出
           </Button>,
         ],
       }}
