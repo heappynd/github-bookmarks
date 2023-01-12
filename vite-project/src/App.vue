@@ -99,7 +99,7 @@ const filterList = computed(() => {
             <img src="/assets/close.svg" alt="" />
           </div>
           <img
-            class="h-16 w-16 p-4 shadow-2xl md:h-20 md:w-20"
+            class="h-16 w-16 rounded-lg border p-4 shadow-2xl md:h-20 md:w-20"
             :src="item.owner.avatar_url"
             alt=""
           />
